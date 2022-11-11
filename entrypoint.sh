@@ -38,6 +38,10 @@ export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 echo ktlint version: "$(ktlint --version)"
 
+ktlint $RELATIVE $ANDROID $BASELINE $INPUT_FILE_GLOB
+git commit -am "Fix ktlint issues"
+git push
+
 ktlint --reporter=checkstyle $RELATIVE $ANDROID $BASELINE $INPUT_FILE_GLOB \
   | reviewdog -f=checkstyle \
     -name="ktlint" \
